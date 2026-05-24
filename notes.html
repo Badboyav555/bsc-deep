@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Read BSc Notes with premium markdown rendering">
+    <title>Notes — BSc Notes Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/notes.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="light-theme notes-page">
+    <div class="bg-blobs"><div class="blob blob-1"></div><div class="blob blob-2"></div></div>
+    <div class="reading-progress-container"><div class="reading-progress-bar" id="readingProgressBar"></div></div>
+    <nav class="navbar glass-nav notes-navbar" id="notesNavbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo nav-logo-compact"><span class="logo-icon">📚</span><span class="logo-text">BSc Notes</span></a>
+            <div class="notes-nav-info" id="notesNavInfo"><span class="nav-sem-subject">Loading...</span></div>
+            <div class="notes-nav-actions">
+                <button class="lang-toggle-btn" id="langToggleBtn" title="Toggle Language"><span class="lang-indicator" id="langIndicator">EN</span></button>
+                <a href="index.html" class="nav-link">Home</a>
+            </div>
+        </div>
+    </nav>
+    <aside class="toc-sidebar glass-card" id="tocSidebar">
+        <div class="toc-header"><span class="toc-title">📑 Contents</span><button class="toc-toggle-btn" id="tocToggleBtn" title="Toggle TOC">−</button></div>
+        <nav class="toc-nav" id="tocNav"><p class="toc-loading">Loading...</p></nav>
+    </aside>
+    <button class="mobile-toc-fab glass-card" id="mobileTocFab" title="Table of Contents">📑</button>
+    <main class="notes-main-container">
+        <article class="notes-article glass-card" id="notesArticle">
+            <div class="notes-loading" id="notesLoading"><div class="loading-spinner"></div><p>Loading your notes...</p></div>
+            <div class="notes-error glass-card" id="notesError" style="display:none;">
+                <div class="error-icon">😕</div><h3>Note Not Found</h3><p id="notesErrorMessage"></p><button class="btn-primary retry-btn" id="retryBtn">🔄 Retry</button>
+            </div>
+            <div class="markdown-body" id="markdownBody" style="display:none;"></div>
+            <div class="preview-lock-overlay" id="previewLockOverlay" style="display:none;">
+                <div class="preview-lock-blur" id="previewLockBlur"></div>
+                <div class="unlock-popup glass-card" id="unlockPopup">
+                    <div class="unlock-popup-inner">
+                        <span class="unlock-icon">🔓</span><h3>Unlock Full Notes</h3><p>You've read 30% of this note. Enter your details to unlock the complete content — no password needed!</p>
+                        <form id="unlockForm" class="unlock-form">
+                            <div class="form-group"><label for="leadName">Full Name</label><input type="text" id="leadName" name="name" placeholder="Enter your name" required class="glass-input"></div>
+                            <div class="form-group"><label for="leadMobile">Mobile Number</label><input type="tel" id="leadMobile" name="mobile" placeholder="Enter your mobile number" required pattern="[0-9]{10}" class="glass-input"></div>
+                            <button type="submit" class="btn-primary btn-unlock" id="unlockSubmitBtn"><span class="btn-text">Unlock Now</span><span class="loading-spinner-sm" style="display:none;"></span></button>
+                        </form>
+                        <p class="unlock-privacy">🔒 Your information is safe & secure</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+    <div class="image-zoom-modal" id="imageZoomModal">
+        <div class="image-zoom-backdrop" id="imageZoomBackdrop"></div>
+        <div class="image-zoom-content"><button class="zoom-close-btn" id="zoomCloseBtn">✕</button><img src="" alt="Zoomed image" id="zoomImage"></div>
+    </div>
+    <script src="js/notes.js"></script>
+</body>
+</html>

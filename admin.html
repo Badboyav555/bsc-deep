@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin Dashboard — BSc Notes Platform">
+    <title>Admin Dashboard — BSc Notes Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="light-theme admin-page">
+    <div class="bg-blobs"><div class="blob blob-1"></div><div class="blob blob-2"></div></div>
+    <div class="admin-layout">
+        <aside class="admin-sidebar glass-card" id="adminSidebar">
+            <div class="admin-sidebar-header"><span class="admin-logo">⚙️</span><h3>Admin Panel</h3></div>
+            <nav class="admin-nav">
+                <button class="admin-nav-btn active" data-section="leads"><span>👥</span> Leads</button>
+                <button class="admin-nav-btn" data-section="notes-manage"><span>📝</span> Notes Manager</button>
+                <button class="admin-nav-btn" data-section="links"><span>🔗</span> Note Links</button>
+            </nav>
+            <div class="admin-sidebar-footer"><a href="index.html" class="back-to-site">← Back to Site</a></div>
+        </aside>
+        <main class="admin-main">
+            <div class="admin-topbar glass-card">
+                <button class="sidebar-toggle-btn" id="sidebarToggleBtn">☰</button>
+                <h2 class="admin-section-title" id="adminSectionTitle">Lead Management</h2>
+                <div class="admin-topbar-actions"><span class="admin-badge" id="adminBadge">Admin</span></div>
+            </div>
+            <section class="admin-section active" id="leadsSection">
+                <div class="admin-stats-grid" id="adminStatsGrid">
+                    <div class="admin-stat-card glass-card"><span class="stat-icon">👥</span><div class="stat-info"><span class="stat-value" id="statTotalLeads">0</span><span class="stat-label">Total Leads</span></div></div>
+                    <div class="admin-stat-card glass-card"><span class="stat-icon">📅</span><div class="stat-info"><span class="stat-value" id="statTodayLeads">0</span><span class="stat-label">Today's Leads</span></div></div>
+                    <div class="admin-stat-card glass-card"><span class="stat-icon">📚</span><div class="stat-info"><span class="stat-value" id="statUniqueNotes">0</span><span class="stat-label">Unique Notes</span></div></div>
+                </div>
+                <div class="admin-toolbar glass-card">
+                    <input type="text" id="leadSearch" placeholder="Search leads..." class="glass-input admin-search-input">
+                    <button class="btn-primary" id="exportCsvBtn">📥 Export CSV</button>
+                    <button class="btn-secondary" id="refreshLeadsBtn">🔄 Refresh</button>
+                </div>
+                <div class="admin-table-container glass-card">
+                    <div class="table-responsive">
+                        <table class="admin-table" id="leadsTable"><thead><tr><th>#</th><th>Name</th><th>Mobile</th><th>Semester</th><th>Subject</th><th>Note</th><th>Date</th><th>Actions</th></tr></thead><tbody id="leadsTableBody"><tr><td colspan="8">Loading leads...</td></tr></tbody></table>
+                    </div>
+                    <div class="table-pagination" id="tablePagination"></div>
+                </div>
+            </section>
+            <section class="admin-section" id="notesManageSection" style="display:none;">
+                <div class="notes-manager glass-card">
+                    <h3>Markdown Note Editor</h3>
+                    <p class="section-desc">Write or edit markdown notes.</p>
+                    <div class="note-editor-form">
+                        <div class="form-row">
+                            <select id="editorSem" class="glass-input"><option value="1">Sem 1</option>...<option value="6">Sem 6</option></select>
+                            <select id="editorSubject" class="glass-input"><option value="physics">Physics</option>...</select>
+                            <select id="editorUnit" class="glass-input"><option value="unit1">Unit 1</option>...<option value="unit5">Unit 5</option></select>
+                            <select id="editorLang" class="glass-input"><option value="en">English</option><option value="hi">Hindi</option></select>
+                        </div>
+                        <div class="form-group"><label>File Path</label><input type="text" id="editorFilePath" class="glass-input" readonly></div>
+                        <div class="form-group"><label>Markdown Content</label><textarea id="editorContent" class="glass-input editor-textarea" rows="15"></textarea></div>
+                        <div class="editor-actions">
+                            <button class="btn-primary" id="previewNoteBtn">👁 Preview</button>
+                            <button class="btn-secondary" id="copyNoteBtn">📋 Copy Content</button>
+                            <button class="btn-secondary" id="copyPathBtn">📋 Copy Path</button>
+                        </div>
+                    </div>
+                    <div class="note-preview-container glass-card" id="notePreviewContainer" style="display:none;"><h4>Preview</h4><div class="markdown-body note-preview" id="notePreview"></div></div>
+                </div>
+            </section>
+            <section class="admin-section" id="linksSection" style="display:none;">
+                <div class="links-manager glass-card"><h3>Semester-wise Note Links</h3><div class="links-grid" id="linksGrid"></div></div>
+            </section>
+        </main>
+    </div>
+    <div class="modal-overlay" id="deleteModal" style="display:none;">
+        <div class="modal-card glass-card"><h4>Confirm Delete</h4><p>Are you sure?</p><div class="modal-actions"><button class="btn-secondary" id="cancelDeleteBtn">Cancel</button><button class="btn-danger" id="confirmDeleteBtn">Delete</button></div></div>
+    </div>
+    <script src="js/admin.js"></script>
+</body>
+</html>
